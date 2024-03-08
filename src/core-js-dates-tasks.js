@@ -188,8 +188,16 @@ function formatDate(/* date */) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(month, year) {
+  let countWeekends = 0;
+  const totalDays = new Date(year, month, 0).getDate();
+  for (let day = 1; day <= totalDays; day += 1) {
+    const currentDate = new Date(year, month - 1, day);
+    if (currentDate.getDay() === 0 || currentDate.getDay() === 6) {
+      countWeekends += 1;
+    }
+  }
+  return countWeekends;
 }
 
 /**
@@ -272,8 +280,15 @@ function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
  * Date(2022, 2, 1) => false
  * Date(2020, 2, 1) => true
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getFullYear();
+  if (year % 4 === 0) {
+    if (year % 100 === 0) {
+      return year % 400 === 0;
+    }
+    return true;
+  }
+  return false;
 }
 
 module.exports = {
